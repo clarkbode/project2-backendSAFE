@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: BookFaceApi
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: jdula
+Implementation-Vendor-Id: com.revature
+Build-Jdk: 1.8.0_181
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/BookFaceApi
+Created-By: Maven Integration for Eclipse
+
