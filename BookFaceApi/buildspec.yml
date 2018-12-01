@@ -7,5 +7,4 @@ phases:
 artifacts:
   files:
     - '**/*'
-  base-directory: 'BookFaceApi/target/BookFaceApi'
-  
+  base-directory: 'BookFaceApi/target'
