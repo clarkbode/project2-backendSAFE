@@ -1,16 +1,23 @@
 package com.revature.models;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 //import org.springframework.data.annotation.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "posts")
@@ -19,7 +26,7 @@ public class Post {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int postId;
-	
+		
 	@NotNull
 	@Column(unique=true, nullable=false, updatable=false)
 	private int authorId;
@@ -35,6 +42,15 @@ public class Post {
 	@NotNull
 	@Column(nullable=false)
 	private int postLikes;
+	
+	@JsonManagedReference
+	@OneToMany(mappedBy = "post")
+	private Set<Comment> comments;
+	
+	@JsonManagedReference
+	@ManyToOne
+	@JoinColumn(name = "authorId", insertable=false, updatable=false)
+	private User user;
 	
 	@Override
 	public int hashCode() {
@@ -121,15 +137,34 @@ public class Post {
 	public void setPost_likes(int post_likes) {
 		this.postLikes = post_likes;
 	}
+	
+	
+	public Set<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Set<Comment> comments) {
+		this.comments = comments;
+	}
+	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public Post(int post_id, @NotNull int author_id, @NotNull String post_body, @NotNull String post_image,
-			@NotNull int post_likes) {
+			@NotNull int post_likes, Set<Comment> comments, User user) {
 		super();
 		this.postId = post_id;
 		this.authorId = author_id;
 		this.postBody = post_body;
 		this.postImage = post_image;
 		this.postLikes = post_likes;
+		this.comments = comments;
+		this.user = user;
 	}
 	
 

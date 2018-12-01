@@ -11,9 +11,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
@@ -48,7 +50,11 @@ public class User {
 	        inverseJoinColumns = { @JoinColumn(name = "friendId") }
 	    )
     private Set<User> friendsList = new HashSet<>();
-
+	
+	@JsonBackReference
+	@OneToMany(mappedBy="user")
+	private Set<Post> posts = new HashSet<>();
+	
 	public User() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -112,6 +118,7 @@ public class User {
 	public void setLast_name(String last_name) {
 		this.lastName = last_name;
 	}
+	
 
 	@Override
 	public int hashCode() {

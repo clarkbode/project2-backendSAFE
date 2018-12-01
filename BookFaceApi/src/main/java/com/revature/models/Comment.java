@@ -2,13 +2,18 @@ package com.revature.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 //@Entity
 //@Table(schema = "project_2", name = "comments")
@@ -38,6 +43,10 @@ public class Comment {
 	@Column(nullable=false)
 	private int postId;
 	
+	@JsonBackReference
+	@ManyToOne()
+	@JoinColumn(name="postId", insertable=false, updatable=false)
+	private Post post;
 
 	public Comment() {
 		super();
@@ -45,13 +54,14 @@ public class Comment {
 	}
 
 	public Comment(int commentId, @NotNull String commentBody, @NotNull int commentLikes, @NotNull int authorId,
-			@NotNull int postId) {
+			@NotNull int postId, Post post) {
 		super();
 		this.commentId = commentId;
 		this.commentBody = commentBody;
 		this.commentLikes = commentLikes;
 		this.authorId = authorId;
 		this.postId = postId;
+		this.post = post;
 	}
 
 	public int getCommentId() {
@@ -92,6 +102,14 @@ public class Comment {
 
 	public void setPostId(int postId) {
 		this.postId = postId;
+	}
+	
+	public Post getPost() {
+		return post;
+	}
+
+	public void setPost(Post post) {
+		this.post = post;
 	}
 
 	@Override
