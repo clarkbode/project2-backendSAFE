@@ -7,5 +7,5 @@ import com.revature.models.Profile;
 
 @Repository
 public interface ProfileRepo extends JpaRepository<Profile, Integer> {
-
+	
 }
